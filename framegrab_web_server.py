@@ -19,8 +19,7 @@ class FrameGrabWebServer:
         self._setup_routes()
 
         threading.Thread(target=self._run, daemon=True).start()
-        self._thread_started = True
-        print(f"FrameGrab webserver running at http://{self.host}:{self.port}")
+        print(f"FrameGrab web server running at http://{self.host}:{self.port}")
 
     def _setup_routes(self):
         TEMPLATE = f'''
