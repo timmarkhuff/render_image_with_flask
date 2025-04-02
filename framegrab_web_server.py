@@ -18,7 +18,9 @@ class FrameGrabWebServer:
         self.app = Flask(__name__)
         self._setup_routes()
 
-        self._thread_started = False
+        threading.Thread(target=self._run, daemon=True).start()
+        self._thread_started = True
+        print(f"FrameGrab webserver running at http://{self.host}:{self.port}")
 
     def _setup_routes(self):
         TEMPLATE = f'''
@@ -52,8 +54,3 @@ class FrameGrabWebServer:
     def show_image(self, frame):
         _, jpeg = cv2.imencode('.jpg', frame)
         self.image_bytes = jpeg.tobytes()
-
-        if not self._thread_started:
-            threading.Thread(target=self._run, daemon=True).start()
-            self._thread_started = True
-            print(f"Flask server running at http://{self.host}:{self.port}")
