@@ -1,6 +1,5 @@
 import framegrab
 from framegrab_web_server import FrameGrabWebServer
-import time
 
 # Connect to your camera. Below is an example for connecting to a web cam
 config = {
@@ -15,21 +14,20 @@ web_server = FrameGrabWebServer("My Demo Image Viewer")
 # console and will look something like this: http://0.0.0.0:5000
 
 while True:
-    # Handle user input
-    user_input = input(
-        "Enter 'q' to quit.  "
-        "Press Enter to grab a frame and display it in the web server:  "
-        ).lower().strip()
-    
-    if user_input == 'q':
-        break
-    
     # Capture an image
     frame = grabber.grab()
     
     # Display the image
     web_server.show_image(frame)
     
-    time.sleep(0.1)
+    # Handle user input
+    user_input = input(
+        "Enter 'q' to quit.  "
+        "Enter any other key to grab a frame and display it in the web server:  "
+        ).lower().strip()
+    
+    if user_input == 'q':
+        break
+    
 
 grabber.release()
